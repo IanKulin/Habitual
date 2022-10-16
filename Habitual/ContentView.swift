@@ -10,14 +10,14 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @StateObject var habits = Habits()
+    @StateObject var habitsCollection = Habits()
     @State private var showingAddHabit = false
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(habits.items) { habit in
-                    habitView(habit: habit)
+                ForEach(habitsCollection.items) { habitItem in
+                    habitView(habitItem: habitItem, habitsCollection: habitsCollection)
                 }
                 .onDelete(perform: removeHabit)
             }
@@ -31,36 +31,45 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $showingAddHabit) {
-            AddView(habits: habits)
+            AddView(habitsCollection: habitsCollection)
         }
     }
 
 
-    func habitView(habit: HabitItem) -> some View {
+    func habitView(habitItem: HabitItem, habitsCollection: Habits) -> some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(habit.name)
+                Text(habitItem.name)
                     .font(.headline)
-                Text(habit.lastDone.formatted(date: .abbreviated, time: .omitted))
+                Text(habitItem.lastDone.formatted(date: .abbreviated, time: .omitted))
             }
             // some text for how many times done
-            Text("     [\(habit.timesDone)]")
+            Text(" (\(habitItem.timesDone))")
                 .font(.largeTitle)
             // a button to say I've just done it now
             Spacer()
             Button {
                 // this is where I'd like to mark this habit as done
-                // habit.justDone()
+                if !habitsCollection.markAsDone(habit: habitItem) {
+                    print("Unexpected error - habit not found in collection:\(habitItem.name)")
+                }
             } label: {
-                Image(systemName: "checkmark")
-                    .font(.system(size: 40))
+                if habitItem.due {
+                    Image(systemName: "rectangle")
+                        .font(.system(size: 40))
+                } else {
+                    Image(systemName: "checkmark.rectangle")
+                        .font(.system(size: 40))
+                }
+
             }
+            .buttonStyle(.bordered)
         }
     }
 
 
     func removeHabit(at offsets: IndexSet) {
-        habits.items.remove(atOffsets: offsets)
+        habitsCollection.items.remove(atOffsets: offsets)
     }
 
 }

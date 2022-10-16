@@ -8,15 +8,14 @@
 import Foundation
 
 
-struct HabitItem: Identifiable, Codable {
+struct HabitItem: Identifiable, Codable, Equatable {
     var id = UUID()
     let name: String
     var started = Date()
     var timesDone = 0
     var lastDone: Date
-
-    mutating func justDone() {
-        timesDone += 1
-        lastDone = Date()
+    var daysBetweenCompletions = 1.0
+    var due: Bool {
+        lastDone.timeIntervalSince(Date.now) > (daysBetweenCompletions * 60 * 60 * 24)
     }
 }

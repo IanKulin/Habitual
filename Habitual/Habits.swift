@@ -29,6 +29,20 @@ class Habits: ObservableObject {
         items = []
     }
 
+    func markAsDone(habit: HabitItem) -> Bool {
+        let habitIndex = items.firstIndex(of: habit)
+        if let habitIndex = habitIndex {
+            items[habitIndex].lastDone = Date()
+            items[habitIndex].timesDone += 1
+            return true
+        } else {
+            return false
+        }
+    }
+
+
     deinit {
     }
+
+
 }

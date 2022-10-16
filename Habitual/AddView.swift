@@ -9,21 +9,29 @@ import SwiftUI
 
 
 struct AddView: View {
-    @ObservedObject var habits: Habits
+    @ObservedObject var habitsCollection: Habits
     @Environment(\.dismiss) var dismiss
 
     @State private var name = ""
+    @State private var daysBetween = 1.0
+    let daysBetweenChoices = [0.5, 1.0, 7.0]
+
 
     var body: some View {
         NavigationView {
             Form {
                 TextField("Name", text: $name)
+                Picker("How often (days)", selection: $daysBetween) {
+                    ForEach(daysBetweenChoices, id: \.self) { option in
+                        Text("\(option)").tag(option)
+                    }
+                }
             }
             .navigationTitle("Add new habit")
             .toolbar {
                 Button("Save") {
-                    let habit = HabitItem(name: name, lastDone: Date())
-                    habits.items.append(habit)
+                    let habit = HabitItem(name: name, lastDone: Date(), daysBetweenCompletions: daysBetween)
+                    habitsCollection.items.append(habit)
                     dismiss()
                 }
             }
