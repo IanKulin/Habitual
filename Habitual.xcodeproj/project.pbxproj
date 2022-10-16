@@ -11,6 +11,9 @@
 		560534EB28FBE7B400754267 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560534EA28FBE7B400754267 /* ContentView.swift */; };
 		560534ED28FBE7B500754267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 560534EC28FBE7B500754267 /* Assets.xcassets */; };
 		560534F028FBE7B500754267 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 560534EF28FBE7B500754267 /* Preview Assets.xcassets */; };
+		560534F728FBE7F000754267 /* HabitItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560534F628FBE7F000754267 /* HabitItem.swift */; };
+		560534F928FBE7FF00754267 /* Habits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560534F828FBE7FF00754267 /* Habits.swift */; };
+		560534FB28FBEA7B00754267 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560534FA28FBEA7B00754267 /* AddView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		560534EA28FBE7B400754267 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		560534EC28FBE7B500754267 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		560534EF28FBE7B500754267 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		560534F628FBE7F000754267 /* HabitItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitItem.swift; sourceTree = "<group>"; };
+		560534F828FBE7FF00754267 /* Habits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habits.swift; sourceTree = "<group>"; };
+		560534FA28FBEA7B00754267 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,9 @@
 			children = (
 				560534E828FBE7B400754267 /* HabitualApp.swift */,
 				560534EA28FBE7B400754267 /* ContentView.swift */,
+				560534FA28FBEA7B00754267 /* AddView.swift */,
+				560534F628FBE7F000754267 /* HabitItem.swift */,
+				560534F828FBE7FF00754267 /* Habits.swift */,
 				560534EC28FBE7B500754267 /* Assets.xcassets */,
 				560534EE28FBE7B500754267 /* Preview Content */,
 			);
@@ -77,6 +86,7 @@
 				560534E128FBE7B400754267 /* Sources */,
 				560534E228FBE7B400754267 /* Frameworks */,
 				560534E328FBE7B400754267 /* Resources */,
+				560534FC28FBF1D400754267 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -132,6 +142,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		560534FC28FBF1D400754267 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		560534E128FBE7B400754267 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -139,6 +170,9 @@
 			files = (
 				560534EB28FBE7B400754267 /* ContentView.swift in Sources */,
 				560534E928FBE7B400754267 /* HabitualApp.swift in Sources */,
+				560534FB28FBEA7B00754267 /* AddView.swift in Sources */,
+				560534F928FBE7FF00754267 /* Habits.swift in Sources */,
+				560534F728FBE7F000754267 /* HabitItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
