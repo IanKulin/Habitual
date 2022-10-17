@@ -27,7 +27,11 @@ struct ContentView: View {
                     showingAddHabit = true
                 } label: {
                     Image(systemName: "plus")
+                        .font(.system(size: 25))
+                        .padding(.horizontal)
                 }
+            }
+            .refreshable {
             }
         }
         .sheet(isPresented: $showingAddHabit) {
@@ -43,13 +47,11 @@ struct ContentView: View {
                     .font(.headline)
                 Text(habitItem.lastDone.formatted(date: .abbreviated, time: .omitted))
             }
-            // some text for how many times done
-            Text(" (\(habitItem.timesDone))")
-                .font(.largeTitle)
-            // a button to say I've just done it now
+            Text("\(Int.random(in: 0...10))")
             Spacer()
+            Text(" \(habitItem.timesDone)  ")
+                .font(.largeTitle)
             Button {
-                // this is where I'd like to mark this habit as done
                 if !habitsCollection.markAsDone(habit: habitItem) {
                     print("Unexpected error - habit not found in collection:\(habitItem.name)")
                 }
@@ -63,7 +65,7 @@ struct ContentView: View {
                 }
 
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(.borderless)
         }
     }
 

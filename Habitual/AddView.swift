@@ -23,7 +23,7 @@ struct AddView: View {
                 TextField("Name", text: $name)
                 Picker("How often (days)", selection: $daysBetween) {
                     ForEach(daysBetweenChoices, id: \.self) { option in
-                        Text("\(option)").tag(option)
+                        Text("\(option, specifier: "%.1f")").tag(option)
                     }
                 }
             }
