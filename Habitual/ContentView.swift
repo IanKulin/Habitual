@@ -8,46 +8,19 @@
 import SwiftUI
 
 
-struct ContentView: View {
+struct HabitView: View {
 
-    @StateObject var habitsCollection = Habits()
-    @State private var showingAddHabit = false
+    @State var habitItem: HabitItem
+    @StateObject var habitsCollection: Habits
+    @State var refresh: Bool
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(habitsCollection.items) { habitItem in
-                    habitView(habitItem: habitItem, habitsCollection: habitsCollection)
-                }
-                .onDelete(perform: removeHabit)
-            }
-            .navigationTitle("Habitual")
-            .toolbar {
-                Button {
-                    showingAddHabit = true
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.system(size: 25))
-                        .padding(.horizontal)
-                }
-            }
-            .refreshable {
-            }
-        }
-        .sheet(isPresented: $showingAddHabit) {
-            AddView(habitsCollection: habitsCollection)
-        }
-    }
-
-
-    func habitView(habitItem: HabitItem, habitsCollection: Habits) -> some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(habitItem.name)
                     .font(.headline)
                 Text(habitItem.lastDone.formatted(date: .abbreviated, time: .omitted))
             }
-            Text("\(Int.random(in: 0...10))")
             Spacer()
             Text(" \(habitItem.timesDone)  ")
                 .font(.largeTitle)
@@ -66,6 +39,51 @@ struct ContentView: View {
 
             }
             .buttonStyle(.borderless)
+        }
+    }
+}
+
+
+struct ContentView: View {
+
+    @StateObject var habitsCollection = Habits()
+    @State private var showingAddHabit = false
+
+    @State private var refresh = false
+    @Environment(\.scenePhase) var scenePhase
+
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(habitsCollection.items) { habitItem in
+                    HabitView(habitItem: habitItem, habitsCollection: habitsCollection, refresh: refresh)
+                }
+                .onDelete(perform: removeHabit)
+            }
+            .navigationTitle("Habitual")
+            .toolbar {
+                Button {
+                    showingAddHabit = true
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 25))
+                        .padding(.horizontal)
+                }
+            }
+            .refreshable {
+                refresh.toggle()
+            }
+        }
+        .sheet(isPresented: $showingAddHabit) {
+            AddView(habitsCollection: habitsCollection)
+        }
+        .onAppear {
+            refresh.toggle()
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .active {
+                refresh.toggle()
+            }
         }
     }
 
