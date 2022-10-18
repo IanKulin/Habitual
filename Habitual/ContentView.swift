@@ -8,42 +8,6 @@
 import SwiftUI
 
 
-struct HabitView: View {
-
-    @State var habitItem: HabitItem
-    @StateObject var habitsCollection: Habits
-    @State var refresh: Bool
-
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(habitItem.name)
-                    .font(.headline)
-                Text(habitItem.lastDone.formatted(date: .abbreviated, time: .omitted))
-            }
-            Spacer()
-            Text(" \(habitItem.timesDone)  ")
-                .font(.largeTitle)
-            Button {
-                if !habitsCollection.markAsDone(habit: habitItem) {
-                    print("Unexpected error - habit not found in collection:\(habitItem.name)")
-                }
-            } label: {
-                if habitItem.due {
-                    Image(systemName: "rectangle")
-                        .font(.system(size: 40))
-                } else {
-                    Image(systemName: "checkmark.rectangle")
-                        .font(.system(size: 40))
-                }
-
-            }
-            .buttonStyle(.borderless)
-        }
-    }
-}
-
-
 struct ContentView: View {
 
     @StateObject var habitsCollection = Habits()
@@ -56,7 +20,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(habitsCollection.items) { habitItem in
-                    HabitView(habitItem: habitItem, habitsCollection: habitsCollection, refresh: refresh)
+                    habitView(habitItem: habitItem, habitsCollection: habitsCollection, refresh: refresh)
                 }
                 .onDelete(perform: removeHabit)
             }
@@ -92,6 +56,34 @@ struct ContentView: View {
         habitsCollection.items.remove(atOffsets: offsets)
     }
 
+}
+
+
+func habitView (habitItem: HabitItem, habitsCollection: Habits, refresh: Bool) -> some View {
+    HStack {
+        VStack(alignment: .leading) {
+            Text(habitItem.name)
+                .font(.headline)
+            Text("Due: \(habitItem.dateDue.formatted())")
+        }
+        Spacer()
+        Text(" \(habitItem.timesDone) ")
+        Button {
+            if !habitsCollection.markAsDone(habit: habitItem) {
+                print("Unexpected error - habit not found in collection:\(habitItem.name)")
+            }
+        } label: {
+            if habitItem.isDueNow {
+                Image(systemName: "rectangle")
+                    .font(.system(size: 30))
+            } else {
+                Image(systemName: "checkmark.rectangle")
+                    .font(.system(size: 30))
+            }
+
+        }
+        .buttonStyle(.borderless)
+    }
 }
 
 

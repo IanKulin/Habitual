@@ -15,7 +15,10 @@ struct HabitItem: Identifiable, Codable, Equatable {
     var timesDone = 0
     var lastDone: Date
     var daysBetweenCompletions = 1.0
-    var due: Bool {
-        lastDone.timeIntervalSince(Date.now) > (daysBetweenCompletions * 60 * 60 * 24)
+    var isDueNow: Bool {
+        dateDue < Date()
+    }
+    var dateDue: Date {
+        lastDone.addingTimeInterval(86_400 * daysBetweenCompletions)
     }
 }
