@@ -20,7 +20,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(habitsCollection.items) { habitItem in
-                    habitView(habitItem: habitItem, habitsCollection: habitsCollection, refresh: refresh)
+                    HabitView(habitItem: habitItem, habitsCollection: habitsCollection, refresh: refresh)
                 }
                 .onDelete(perform: removeHabit)
             }
@@ -59,30 +59,35 @@ struct ContentView: View {
 }
 
 
-func habitView (habitItem: HabitItem, habitsCollection: Habits, refresh: Bool) -> some View {
-    HStack {
-        VStack(alignment: .leading) {
-            Text(habitItem.name)
-                .font(.headline)
-            Text("Due: \(habitItem.dateDue.formatted())")
-        }
-        Spacer()
-        Text(" \(habitItem.timesDone) ")
-        Button {
-            if !habitsCollection.markAsDone(habit: habitItem) {
-                print("Unexpected error - habit not found in collection:\(habitItem.name)")
-            }
-        } label: {
-            if habitItem.isDueNow {
-                Image(systemName: "rectangle")
-                    .font(.system(size: 30))
-            } else {
-                Image(systemName: "checkmark.rectangle")
-                    .font(.system(size: 30))
-            }
+struct HabitView: View {
+    var habitItem: HabitItem
+    var habitsCollection: Habits
+    var refresh: Bool
 
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(habitItem.name)
+                    .font(.headline)
+                Text("Due: \(habitItem.dateDue.formatted())")
+            }
+            Spacer()
+            Text(" \(habitItem.timesDone) ")
+            Button {
+                if !habitsCollection.markAsDone(habit: habitItem) {
+                    print("Unexpected error - habit not found in collection:\(habitItem.name)")
+                }
+            } label: {
+                if habitItem.isDueNow {
+                    Image(systemName: "rectangle")
+                        .font(.system(size: 30))
+                } else {
+                    Image(systemName: "checkmark.rectangle")
+                        .font(.system(size: 30))
+                }
+            }
+            .buttonStyle(.borderless)
         }
-        .buttonStyle(.borderless)
     }
 }
 
