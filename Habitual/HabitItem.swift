@@ -29,7 +29,19 @@ struct HabitItem: Identifiable, Codable, Equatable {
         dateDue < Date()
     }
     var dateDue: Date {
-        lastDone.addingTimeInterval(86_400 * daysBetweenCompletions)
+        switch repeatsOn {
+        case .noRepeat:
+            return lastDone.addingTimeInterval(86_400 * daysBetweenCompletions)
+        case .daily:
+            // extract time from repeatsDate and add it to one day after lastDone
+            return lastDone.addingTimeInterval(86_400 * daysBetweenCompletions)
+        case .weekly:
+            // extract day of week and time from repeatsDate and increment lastDone to get there
+            return lastDone.addingTimeInterval(86_400 * daysBetweenCompletions)
+        case .monthly:
+            // extract day of month and time from repeatsDate
+            return lastDone.addingTimeInterval(86_400 * daysBetweenCompletions)
+        }
     }
 
     var dueString: String {
