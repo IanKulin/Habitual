@@ -14,6 +14,8 @@ class Habits: ObservableObject {
         didSet {
             if let encoded = try? JSONEncoder().encode(items) {
                 UserDefaults.standard.set(encoded, forKey: "Habits")
+            } else {
+                print("JSON encoding fail")
             }
         }
     }
@@ -23,6 +25,8 @@ class Habits: ObservableObject {
             if let decodedItems = try? JSONDecoder().decode([HabitItem].self, from: savedItems) {
                 items = decodedItems
                 return
+            } else {
+                print("JSON decoding fail")
             }
         }
 

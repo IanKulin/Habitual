@@ -17,38 +17,47 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(habitsCollection.items) { habitItem in
-                    HabitView(habitItem: habitItem, habitsCollection: habitsCollection, refresh: refresh)
+        ZStack {
+            LinearGradient(
+                colors: [.orange, .red],
+                startPoint: .top,
+                endPoint: .center
+            )
+            NavigationView {
+                List {
+                    ForEach(habitsCollection.items) { habitItem in
+                        HabitView(habitItem: habitItem, habitsCollection: habitsCollection, refresh: refresh)
+                    }
+                    .onDelete(perform: removeHabit)
                 }
-                .onDelete(perform: removeHabit)
-            }
-            .navigationTitle("Habitual")
-            .toolbar {
-                Button {
-                    showingAddHabit = true
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.system(size: 25))
-                        .padding(.horizontal)
+                .navigationTitle("Habitual")
+                .toolbar {
+                    Button {
+                        showingAddHabit = true
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.system(size: 25))
+                            .padding(.horizontal)
+                    }
+                }
+                .refreshable {
+                    refresh.toggle()
                 }
             }
-            .refreshable {
+            .opacity(0.85)
+            .sheet(isPresented: $showingAddHabit) {
+                AddView(habitsCollection: habitsCollection)
+            }
+            .onAppear {
                 refresh.toggle()
             }
-        }
-        .sheet(isPresented: $showingAddHabit) {
-            AddView(habitsCollection: habitsCollection)
-        }
-        .onAppear {
-            refresh.toggle()
-        }
-        .onChange(of: scenePhase) { newPhase in
-            if newPhase == .active {
-                refresh.toggle()
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .active {
+                    refresh.toggle()
+                }
             }
         }
+        .ignoresSafeArea()
     }
 
 
