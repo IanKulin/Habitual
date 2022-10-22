@@ -24,32 +24,31 @@ struct HabitItem: Identifiable, Codable, Equatable {
 
     var dueString: String {
         if isDueNow {
-            return "Due: now!"
+            return "Overdue"
         } else {
             let interval = dateDue.timeIntervalSince(Date())
             let day = 86_400.0
             switch interval {
             case -1.0..<day / 2:
-                return "Due: \(dateDue.formatted(date: .omitted, time: .standard))"
+                return "Due: \(dateDue.formatted(date: .omitted, time: .shortened))"
             case day / 2..<day * 7:
-                return "Due: \(dateDue.formatted())"
+                return "Due: \(dateDue.formatted(Date.FormatStyle().weekday()))"
             default:
                 return "Due: \(dateDue.formatted(date: .abbreviated, time: .omitted))"
             }
 
         }
     }
-    
+
     var fractionDue: Double {
         // when a habit is overdue, or due now, the fractionDue is 1.0
         // when it's not due at all - just been donw, the fractioDue is 0.0
         if isDueNow {
             return 1.0
-        }
-        else {
-            let daysSinceDone = Date().timeIntervalSince(lastDone)/86_400
-            return daysSinceDone/daysBetweenCompletions
-
+        } else {
+            let daysSinceDone = Date().timeIntervalSince(lastDone) / 86_400
+            assert(daysBetweenCompletions > 0.0)
+            return daysSinceDone / daysBetweenCompletions
         }
     }
 }

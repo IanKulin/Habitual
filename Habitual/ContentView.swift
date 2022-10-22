@@ -73,6 +73,7 @@ struct HabitView: View {
             }
             Spacer()
             Text(" \(habitItem.timesDone) ")
+                .foregroundColor(.secondary)
             Button {
                 if !habitsCollection.markAsDone(habit: habitItem) {
                     print("Unexpected error - habit not found in collection:\(habitItem.name)")
@@ -83,8 +84,13 @@ struct HabitView: View {
                     Image(systemName: "rectangle")
                         .font(.system(size: 30))
                 } else {
-                    Image(systemName: "checkmark.rectangle")
-                        .font(.system(size: 30))
+                    ZStack {
+                        Image(systemName: "rectangle")
+                            .font(.system(size: 30))
+                        Image(systemName: "checkmark.rectangle")
+                            .font(.system(size: 30))
+                            .opacity(1.0 - habitItem.fractionDue)
+                    }
                 }
             }
             .buttonStyle(.borderless)
