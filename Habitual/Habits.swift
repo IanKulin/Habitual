@@ -26,10 +26,26 @@ class Habits: ObservableObject {
                 items = decodedItems
                 return
             } else {
-                print("JSON decoding fail")
+                print("JSON decoding fail - trying v0.1")
+                var v01Items = [V01HabitItem]()
+                if let decodedItems = try? JSONDecoder().decode([V01HabitItem].self, from: savedItems) {
+                    v01Items = decodedItems
+                    v01Items.forEach { oldHabit in
+                        items.append(HabitItem(
+                            id: oldHabit.id,
+                            name: oldHabit.name,
+                            started: oldHabit.started,
+                            timesDone: oldHabit.timesDone,
+                            lastDone: oldHabit.lastDone,
+                            daysBetweenCompletions: oldHabit.daysBetweenCompletions
+                        ))
+                    }
+                    return
+                } else {
+                    print("JSON decoding fail")
+                }
             }
         }
-
         items = []
     }
 

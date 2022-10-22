@@ -8,6 +8,14 @@
 import Foundation
 
 
+enum RepeatsOn: Int, Codable {
+    case noRepeat = 0
+    case daily  = 1
+    case weekly = 2
+    case monthly = 3
+}
+
+
 struct HabitItem: Identifiable, Codable, Equatable {
     var id = UUID()
     let name: String
@@ -15,6 +23,8 @@ struct HabitItem: Identifiable, Codable, Equatable {
     var timesDone = 0
     var lastDone: Date
     var daysBetweenCompletions = 1.0
+    var repeatsOn = RepeatsOn.noRepeat
+    var repeatsDate = Date()
     var isDueNow: Bool {
         dateDue < Date()
     }
@@ -51,4 +61,14 @@ struct HabitItem: Identifiable, Codable, Equatable {
             return daysSinceDone / daysBetweenCompletions
         }
     }
+}
+
+
+struct V01HabitItem: Identifiable, Codable, Equatable {
+    var id = UUID()
+    let name: String
+    var started = Date()
+    var timesDone = 0
+    var lastDone: Date
+    var daysBetweenCompletions = 1.0
 }

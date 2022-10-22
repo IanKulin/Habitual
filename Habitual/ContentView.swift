@@ -12,6 +12,7 @@ struct ContentView: View {
 
     @StateObject var habitsCollection = Habits()
     @State private var showingAddHabit = false
+    @State private var showingEditHabit = false
 
     @State private var refresh = false
     @Environment(\.scenePhase) var scenePhase
@@ -59,7 +60,6 @@ struct ContentView: View {
         }
         .ignoresSafeArea()
     }
-
 
     func removeHabit(at offsets: IndexSet) {
         habitsCollection.items.remove(atOffsets: offsets)
