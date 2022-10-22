@@ -40,6 +40,10 @@ class Habits: ObservableObject {
         }
     }
 
+    func sort() {
+        items.sort { $0.dateDue < $1.dateDue }
+    }
+
 
     deinit {
     }

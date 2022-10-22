@@ -14,6 +14,7 @@
 		560534F728FBE7F000754267 /* HabitItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560534F628FBE7F000754267 /* HabitItem.swift */; };
 		560534F928FBE7FF00754267 /* Habits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560534F828FBE7FF00754267 /* Habits.swift */; };
 		560534FB28FBEA7B00754267 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560534FA28FBEA7B00754267 /* AddView.swift */; };
+		566067C72900251600B18D1D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566067C62900251600B18D1D /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		560534F628FBE7F000754267 /* HabitItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitItem.swift; sourceTree = "<group>"; };
 		560534F828FBE7FF00754267 /* Habits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habits.swift; sourceTree = "<group>"; };
 		560534FA28FBEA7B00754267 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		566067C62900251600B18D1D /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			children = (
 				560534E828FBE7B400754267 /* HabitualApp.swift */,
 				560534EA28FBE7B400754267 /* ContentView.swift */,
+				566067C62900251600B18D1D /* Utilities.swift */,
 				560534FA28FBEA7B00754267 /* AddView.swift */,
 				560534F628FBE7F000754267 /* HabitItem.swift */,
 				560534F828FBE7FF00754267 /* Habits.swift */,
@@ -168,6 +171,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				566067C72900251600B18D1D /* Utilities.swift in Sources */,
 				560534EB28FBE7B400754267 /* ContentView.swift in Sources */,
 				560534E928FBE7B400754267 /* HabitualApp.swift in Sources */,
 				560534FB28FBEA7B00754267 /* AddView.swift in Sources */,

@@ -69,7 +69,7 @@ struct HabitView: View {
             VStack(alignment: .leading) {
                 Text(habitItem.name)
                     .font(.headline)
-                Text("Due: \(habitItem.dateDue.formatted())")
+                Text(habitItem.dueString)
             }
             Spacer()
             Text(" \(habitItem.timesDone) ")
@@ -77,6 +77,7 @@ struct HabitView: View {
                 if !habitsCollection.markAsDone(habit: habitItem) {
                     print("Unexpected error - habit not found in collection:\(habitItem.name)")
                 }
+                habitsCollection.sort()
             } label: {
                 if habitItem.isDueNow {
                     Image(systemName: "rectangle")

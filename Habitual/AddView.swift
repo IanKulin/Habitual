@@ -30,13 +30,17 @@ struct AddView: View {
             .navigationTitle("Add new habit")
             .toolbar {
                 Button("Save") {
-                    let habit = HabitItem(name: name, lastDone: Date(), daysBetweenCompletions: daysBetween)
+                    let habit = HabitItem(
+                        name: name,
+                        lastDone: Date().addingTimeInterval(-86_400 * daysBetween),
+                        daysBetweenCompletions: daysBetween
+                    )
                     habitsCollection.items.append(habit)
+                    habitsCollection.sort()
                     dismiss()
                 }
             }
         }
-
     }
 }
 
